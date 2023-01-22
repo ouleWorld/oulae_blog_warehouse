@@ -126,8 +126,15 @@ docker-compose 构建完成之后，在浏览器访问： http://39.101.122.140:
 如果能够正常获取到页面资源，则表示部署成功了！
 ![](./_images/服务器部署验证成功.png)
 
-## 参考链接
 
+## 流量访问 Docker 流程
+![](./_images/流量访问Docker流程.png)
+
+注意点：
+1. 用户通过 域名+端口号访问到服务器主机
+2. Docker 通过反向代理，将匹配好的流量（通过端口号匹配）代理到相应的 Docker 容器中
+
+## 参考链接
 1. [为什么要使用Docker](https://www.cnblogs.com/yangmingxianshen/p/8025857.html)
 2. [docker 安装](https://docs.docker.com/engine/install/ubuntu/)
 3. [docker compose 安装](https://docs.docker.com/compose/install/linux/#install-the-plugin-manually)
