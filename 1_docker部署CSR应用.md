@@ -132,4 +132,4 @@ docker-compose 构建完成之后，在浏览器访问： http://39.101.122.140:
 2. [docker 安装](https://docs.docker.com/engine/install/ubuntu/)
 3. [docker compose 安装](https://docs.docker.com/compose/install/linux/#install-the-plugin-manually)
 4. [umi-快速上手](https://umijs.org/docs/tutorials/getting-started)
-5. [demo code](https://gitee.com/oulae/oulae_blog_demo/tree/main)
+5. [demo code](https://gitee.com/oulae/oulae_blog_warehouse/blob/main/1_docker%E9%83%A8%E7%BD%B2CSR%E5%BA%94%E7%94%A8.md)
