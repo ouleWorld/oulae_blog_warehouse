@@ -1,0 +1,13 @@
+version: '3'
+services:
+  ## 容器名
+  node-app:
+    ## 当前目录执行 docker build
+    build: .
+    ## 端口映射
+    ports: 
+      - "8000:80"
+    # volumes 参数把目录 ./src 挂载到容器的 /app/src
+    # docker-compose 的配置中才支持相对路径的挂载
+    volumes:
+      - ./dist/:/usr/share/nginx/html/
