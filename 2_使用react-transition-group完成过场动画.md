@@ -128,7 +128,6 @@ If you do need to update a child as it leaves you can provide a childFactory to 
 ## demo
 在下面这个 demo 中，我们不使用 childFactory 这个参数，而是直接将 class 绑定到 CSSTransition 组件中
 [demo](./demo/2_使用react-transition-group完成过场动画/4_TransitionGroup_childFactory参数的意思/src/App.jsx#40)
-[demo](./demo/2_使用react-transition-group完成过场动画/1_常用过渡动画/package-lock.json)
 ```
 return (
   <>
