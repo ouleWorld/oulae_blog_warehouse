@@ -239,4 +239,6 @@ return (
 
 
 # 参考链接
-[umi 3 中实现路由级别的过渡动画](https://github.com/umijs/umi/issues/4827)
+1. [github react-transition-group](https://github.com/reactjs/react-transition-group)
+2. [document react-transition-group](https://reactcommunity.org/react-transition-group/)
+3. [umi 3 中实现路由级别的过渡动画](https://github.com/umijs/umi/issues/4827)
