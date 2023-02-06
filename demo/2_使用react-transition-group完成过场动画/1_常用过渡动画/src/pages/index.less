@@ -1,0 +1,89 @@
+.container {
+  padding-top: 500px;
+  position: relative;
+}
+
+.transition-group {
+  // 翻页动画
+  // 下一页
+  &-forward-enter {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  &-forward-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 1s ease-in;
+  }
+  &-forward-exit {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  &-forward-exit-active {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: all 1s ease-in;
+  }
+  // 上一页
+  &-back-enter {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  &-back-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 1s ease-in;
+  }
+  &-back-exit {
+    &:extend(.main);
+    opacity: 1;
+    transform: translateX(0);
+  }
+  &-back-exit-active {
+    &:extend(.main);
+    opacity: 0;
+    transform: translate(100%);
+    transition: all 1s ease-in;
+  }
+
+  &-opacity-enter {
+    opacity: 0;
+  }
+  &-opacity-enter-active {
+    opacity: 1;
+    transition: all 2s ease-in;
+  }
+  &-opacity-exit {
+    &:extend(.main);
+    opacity: 1;
+  }
+  &-opacity-exit-active {
+    &:extend(.main);
+    opacity: 0;
+    transition: all 2s ease-in;
+  }
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &[data-index="0"] {
+    background-image: url('https://cn.bing.com/th?id=OHR.Godafoss_ZH-CN9460037606_1366x768.jpg');
+  }
+  &[data-index="1"] {
+    background-image: url('https://cn.bing.com/th?id=OHR.SwedishAntenna_ZH-CN9163420082_1366x768.jpg');
+  }
+  &[data-index="2"] {
+    background-image: url('https://cn.bing.com/th?id=OHR.NZTekapo_ZH-CN6919300257_1366x768.jpg');
+  }
+}
