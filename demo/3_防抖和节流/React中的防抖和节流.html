@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.production.min.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="./utils.js"></script>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+      const App = () => {
+        const useState = React.useState;
+        const useMemo = React.useMemo;
+
+        const [point, setPoint] = useState({ x: 0, y: 0 });
+
+        const callback = (e) => {
+          console.log('callback point: ', point);
+          const { screenX, screenY } = e;
+          setPoint({
+            x: screenX,
+            y: screenY,
+          });
+        };
+
+        const mouseMoveDeal = (e) => {
+          console.log('mouseMoveDeal point: ', point);
+          callback(e);
+        };
+
+        /*
+        utils 中的 throttled debounce 使用了闭包的原理去控制(Lodash 中实现方式也是一样的)
+        因此我们在使用的时候, 一定要保证事件的回调函数是不变的, 因此需要使用 useMemo/useCallback 去修饰
+      */
+        const throttledFn = useMemo(() => {
+          return throttled(mouseMoveDeal, 1000);
+        }, []);
+
+        // loadsh 的 debounce 好像写的很吊!
+
+        return (
+          <div
+            // 错误的使用方式
+            // onMouseMove={_.throttle(mouseMoveDeal, 1000)}
+            // 正确的使用方式
+            onMouseMove={throttledFn}
+            style={{ width: '100vw', height: '100vh', background: 'blue' }}
+          >{`坐标为: (${point.x}, ${point.y})`}</div>
+        );
+      };
+
+      ReactDOM.render(<App />, document.getElementById('app'));
+    </script>
+  </body>
+</html>

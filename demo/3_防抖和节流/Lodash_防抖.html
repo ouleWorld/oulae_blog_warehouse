@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lodash - 防抖</title>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+  </head>
+  <body>
+
+    <script>
+      // 防抖和节流 demo
+
+      /*
+        lodash 防抖节流方案注意点:
+          leading: 这个参数和 自定义防抖节流中的 isImmediate 是一样的
+          trailing: 是否进行最后一次调用, true 表示调用, false 表示不调用
+            理解: throttle 场景时, 最后一次调用不足时间的情况
+
+          备注点: 
+            1. _.debounce 设置 { trailing: false } 时, 将不会得到任何调用
+      */
+
+      // 防抖
+      document.addEventListener('mousemove', _.debounce((e) => {
+        const { x, y } = e;
+        console.log(`当前的坐标是: (${x}, ${y})`)
+      }, 1000))
+    </script>
+  </body>
+</html>
