@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>滚动透传问题</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+      }
+      #container {
+        width: 100%;
+      }
+      .page_content {
+        width: 100%;
+        height: 100vh;
+        overflow: auto;
+        background-image: url('https://cdn.9game.cn/static/source/activity/9tv2/bg.png');
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+      .div1 {
+        width: 100%;
+        height: 1000px;
+      }
+      .div2 {
+        width: 100%;
+        height: 1000px;
+      }
+      .button {
+        width: 120px;
+        height: 40px;
+        border: black solid 1px;
+      }
+      .dialog_bg {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.1);
+      }
+      .class_hidden {
+        display: none;
+      }
+      .dialog_test {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 50;
+      }
+      .dialog_content {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 500px;
+        overflow: auto;
+        background-color: red;
+        z-index: 52;
+      }
+      .dialog_list {
+        width: 100%;
+        height: 100%;
+      }
+      .list {
+        border: black solid 1px;
+        width: 100%;
+        height: 60px;
+        margin-bottom: 2px;
+      }
+      .maxhieght {
+        width: 100%;
+        height: 100px;
+        overflow: auto;
+      }
+      .maxhieght .list {
+        background: blue;
+      }
+    </style>
+    <script src="./utils.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <div class="page_content can-scroll">
+        <div class="button">点击我显示弹窗!</div>
+        <div class="div1"></div>
+        <div class="div2"></div>
+      </div>
+      <div class="dialog_bg class_hidden">
+        <div class="dialog_test no-scroll"></div>
+        <div class="dialog_content can-scroll">
+          <div class="dialog_list">
+            <div class="list no-scroll">1</div>
+            <div class="list">2</div>
+            <div class="list maxhieght can-scroll">
+              <div class="list">oulae</div>
+              <div class="list">oulae</div>
+              <div class="list">oulae</div>
+              <div class="list">oulae</div>
+              <div class="list">oulae</div>
+              <div class="list">oulae</div>
+            </div>
+            <div class="list">4</div>
+            <div class="list">5</div>
+            <div class="list">6</div>
+            <div class="list">7</div>
+            <div class="list">8</div>
+            <div class="list">9</div>
+            <div class="list">10</div>
+            <div class="list">11</div>
+            <div class="list">12</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const log = console.log.bind(console);
+      const e = document.querySelector.bind(document);
+
+      const domElementAddEventListener = (element, event, callback) => {
+        element.addEventListener(event, callback);
+      };
+
+      // event: 点击按钮显示弹窗
+      const btnEvent = () => {
+        const btn = e('.button');
+        btn.addEventListener('click', () => {
+          const dialog = e('.dialog_bg');
+          dialog.classList.remove('class_hidden');
+        });
+      };
+
+      // event: 弹窗的相关事件
+      const dialogEvent = () => {
+        const dialog_test = e('.dialog_test');
+        dialog_test.addEventListener('click', () => {
+          const dialog = e('.dialog_bg');
+          dialog.classList.add('class_hidden');
+        });
+      };
+
+      const bindEvent = () => {
+        documentEvent();
+        btnEvent();
+        dialogEvent();
+      };
+
+      const __main = () => {
+        bindEvent();
+      };
+
+      __main();
+    </script>
+  </body>
+</html>

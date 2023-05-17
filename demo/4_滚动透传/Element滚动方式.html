@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>滚动的两种方式</title>
+    <style>
+      .container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+      .box-1 {
+        width: 100%;
+        height: 100%;
+      }
+      .inner-first-1 {
+        width: 100%;
+        height: 600px;
+        background: blue;
+      }
+      .inner-first-2 {
+        width: 100%;
+        height: 600px;
+        background: yellow;
+      }
+
+      .box-2 {
+        width: 100%;
+        height: 400px;
+        overflow-y: auto;
+      }
+      .inner-second-1 {
+        width: 100%;
+        height: 600px;
+        background: red;
+      }
+      .inner-second-2 {
+        width: 100%;
+        height: 600px;
+        background: black;
+      }
+
+      /* 按钮容器的 css */
+      .btn-container {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 80px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background: #fff;
+      }
+    </style>
+</head>
+<body>
+<div class="container">
+  <h3>元素被内容撑开而滚动: box-1</h3>
+  <div class="box-1">
+    <div class="inner-first-1"></div>
+    <div class="inner-first-2"></div>
+  </div>
+
+  <h3>元素因css属性而滚动: box-2</h3>
+  <div class="box-2">
+    <div class="inner-second-1"></div>
+    <div class="inner-second-2"></div>
+  </div>
+
+  <div class="btn-container">
+    <button class="btn-0">获取 document 属性</button>
+    <button class="btn-1">获取 box-1 属性</button>
+    <button class="btn-2">获取 box-2 属性</button>
+  </div>
+</div>
+<script>
+const log = console.log.bind(console);
+const e = document.querySelector.bind(document)
+
+const domElementAddEventListener = (element, event, callback) => {
+  element.addEventListener(event, callback)
+}
+
+const bindEvent = () => {
+  const box_1 = e('.box-1')
+  const box_2 = e('.box-2');
+  box_1.addEventListener('scroll', () => {
+    console.log('here')
+  })
+
+
+  document.addEventListener('scroll', () => {
+    console.log('document');
+  })
+
+  const btn0 = e('.btn-0');
+  btn0.addEventListener('click', () => {
+    const clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+    const offsetHeight = document.documentElement.offsetHeight || document.body.offsetHeight;
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    console.log('document clientHeight: ', clientHeight);
+    console.log('document scrollHeight: ', scrollHeight);
+    console.log('document offsetHeight: ', offsetHeight);
+    console.log('document scrollTop: ', scrollTop);
+  })
+
+  const btn1 = e('.btn-1');
+  btn1.addEventListener('click', () => {
+    console.log('box_1.clientHeight: ', box_1.clientHeight);
+    console.log('box_1.scrollHeight: ', box_1.scrollHeight);
+    console.log('box_1.offsetHeight: ', box_1.offsetHeight);
+    console.log('box_1.scrollTop: ', box_1.scrollTop);
+  })
+
+  const btn2 = e('.btn-2');
+  btn2.addEventListener('click', () => {
+    console.log('box_2.clientHeight: ', box_2.clientHeight);
+    console.log('box_2.scrollHeight: ', box_2.scrollHeight);
+    console.log('box_2.offsetHeight: ', box_2.offsetHeight);
+    console.log('box_2.scrollTop: ', box_2.scrollTop);
+  })
+}
+
+const __main = () => {
+  bindEvent();
+}
+
+__main();
+</script>
+</body>
+</html>
