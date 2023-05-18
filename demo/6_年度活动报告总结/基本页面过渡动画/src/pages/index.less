@@ -1,0 +1,24 @@
+.container {
+  padding-top: 500px;
+  position: relative;
+}
+
+.transition-group {
+  // 渐入渐出动画
+  &-opacity-enter {
+    opacity: 0;
+  }
+  &-opacity-enter-active {
+    opacity: 1;
+    transition: all 2s ease-in;
+  }
+  &-opacity-exit {
+    &:extend(.main);
+    opacity: 1;
+  }
+  &-opacity-exit-active {
+    &:extend(.main);
+    opacity: 0;
+    transition: all 2s ease-in;
+  }
+}
