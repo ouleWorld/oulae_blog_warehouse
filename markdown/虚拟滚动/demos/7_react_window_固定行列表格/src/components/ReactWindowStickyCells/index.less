@@ -1,0 +1,104 @@
+.ReactWindowStickyCellsContainer {
+  .containerTopLeft {
+    width: fit-content;
+    height: fit-content;
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: inline-flex;
+    flex-direction: column;
+    // 左上角容器的层级应该是需要最高的
+    z-index: 15;
+    float: left;
+  }
+
+  .containerTopRight {
+    width: fit-content;
+    height: fit-content;
+    position: sticky;
+    top: 0;
+    right: 0;
+    display: inline-flex;
+    flex-direction: column;
+    // 左上角容器的层级应该是需要最高的
+    z-index: 15;
+    float: right;
+  }
+
+  .containerTop {
+    width: fit-content;
+    position: sticky;
+    top: 0;
+    // 这个 0 不能加，我们只需要 top sticky 就可以了
+    // left: 0;
+    z-index: 10;
+    // display: inline-flex;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .containerLeft {
+    width: fit-content;
+    height: fit-content;
+    position: sticky;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    background: #fff;
+    float: left;
+  }
+
+  .containerRight {
+    width: fit-content;
+    height: fit-content;
+    position: sticky;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    background: #fff;
+    float: right;
+  }
+
+  .containerBottom {
+    width: fit-content;
+    position: sticky;
+    bottom: 0;
+    // 这个 0 不能加，我们只需要 top sticky 就可以了
+    // left: 0;
+    z-index: 10;
+    // display: inline-flex;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .containerBottomLeft {
+    width: fit-content;
+    height: fit-content;
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    display: inline-flex;
+    flex-direction: column;
+    // 左上角容器的层级应该是需要最高的
+    z-index: 15;
+    float: left;
+  }
+
+  .containerBottomRight {
+    width: fit-content;
+    height: fit-content;
+    position: sticky;
+    bottom: 0;
+    right: 0;
+    display: inline-flex;
+    flex-direction: column;
+    // 左上角容器的层级应该是需要最高的
+    z-index: 15;
+    float: right;
+  }
+
+  .childrenContainer {
+    width: 100%;
+    height: 100%;
+  }
+}
