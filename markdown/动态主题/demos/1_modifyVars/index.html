@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>less.modifyVars 原理说明</title>
+    <link
+      rel="stylesheet/less"
+      type="text/css"
+      href="./styles.less"
+    />
+    <script>
+      less = {
+        async: true,
+        env: 'development',
+      };
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/less.js/4.2.0/less.min.js"
+      integrity="sha512-y2WgniVReZzVhOotEigpCJTu6Q6yGN0o8ezFzgS21PlWM1rqfSv7UPraV+IEDO9ljsli47Kr/toVOsukTVynuw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <div class="title">
+      该 demo 必须启用服务器！请使用 http-server 开启本地服务
+    </div>
+    <div class="container"></div>
+    <button>change color</button>
+
+    <script>
+      const btn = document.querySelector('button');
+      btn.addEventListener('click', () => {
+        less.modifyVars({
+          '@primary-color': '#cf1322',
+        });
+      });
+    </script>
+  </body>
+</html>
