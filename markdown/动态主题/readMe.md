@@ -32,7 +32,7 @@ TODO: 图片效果
 [demo](./demos/2_var_css.html)
 TODO: 图片那效果
 
-# antd 动态主题解决方案
+# antd@4 动态主题解决方案
 
 ## antd-theme-generator
 
@@ -42,14 +42,50 @@ antd-theme-generator 是一个将 antd 中所有的 less 变量提取成一个�
 
 解决方案的 demo：[demo](./demos/3_antd-theme-generator/)
 
-实现效果：
+运行效果：
 ![](./_images/antd-theme-generator.gif)
 
 TODO: 感觉这个内容还是要看一下原理才行
 
 ## antd ConfigProvider
 
-## ant V 解决方案
+[ConfigProvider - 动态主题](https://4x-ant-design.antgroup.com/docs/react/customize-theme-variable-cn)
+
+ConfigProvider 方案的本质是将 primaryColor 这些公共变量抽象成为 css 变量，然后通过调用 ConfigProvider.config 这个 API 去修改这些变量的值(**即对应的是 css 方案**)
+
+![](./_images/antdConfigProvider.png)
+
+[方案 demo](./demos/4_antd-ConfigProvider/)
+
+运行效果：
+![](./_images/antd_config.gif)
+
+## 方案比较
+
+| 方案                 | 优点                                                    | 缺点                                                                                                                                                                                 |
+| -------------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| antd-theme-generator | 1. 支持自定义的范围大，至少支持 12 个 less 变量的自定义 | 1. 有些变量可能不支持，比如 @white <br> 2. 对于不antd@4.17 之前的版本兼容性可能比较好，之后的版本边界需要自己确认一下，可能会存在某些变量不能定义的情况 <br> 3. 配置相对而言比较复杂 |
+| antd ConfigProvider  | 1. 配置简单                                             | 1. 官网文档上说这个是一个实验方案 2. 支持的变量比较少，只支持 6 个变量                                                                                                               |
+
+ConfigProvider Theme 配置的定义：
+
+```ts
+export interface Theme {
+  primaryColor?: string;
+  infoColor?: string;
+  successColor?: string;
+  processingColor?: string;
+  errorColor?: string;
+  warningColor?: string;
+}
+```
+
+方案建议：
+
+1. 如果自定义主题的场景比较简单，能够使用 ConfigProvider 的 6 个变量实现的话，推荐使用 ConfigProvider 方案
+2. 如果 ConfigProvider 不能满足自定义的需求，才推荐使用 antd-theme-generator 方案
+
+# ant@5 解决方案
 
 # QA
 
@@ -86,4 +122,7 @@ TODO: 感觉这个内容还是要看一下原理才行
 
 1. [如何在 umi 系项目中实现动态换肤](https://zhuanlan.zhihu.com/p/347725244)
 2. [using-less-in-the-browser](https://lesscss.org/usage/#using-less-in-the-browser)
-3. [](https://github.com/ant-design/ant-design/blob/4.x-stable/components/style/themes/default.less)
+3. [antd default.less](https://github.com/ant-design/ant-design/blob/4.x-stable/components/style/themes/default.less)
+4. [实现 antd 动态主题的两种方式](https://juejin.cn/post/7056415670791208990#heading-17)
+5. [antd 定制主题](https://4x-ant-design.antgroup.com/docs/react/customize-theme-cn)
+6. [github antd-theme-generator](https://github.com/mzohaibqc/antd-theme-generator)
