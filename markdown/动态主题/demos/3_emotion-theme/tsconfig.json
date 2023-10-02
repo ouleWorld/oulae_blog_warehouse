@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "strict": false,
+    "outDir": "./dist/",
+    "noImplicitAny": false,
+    "module": "ES2020", // 为程序设置模块系统
+    "esModuleInterop": true,
+    "target": "ES5",
+    "jsx": "react",
+    "allowJs": true,
+    // 动态导入是 ES6（ES2015） 的一个新特性，如果在 ES5 或 ES3 中使用动态导入，确实需要 Promise 的支持。在 TypeScript 中，使用动态导入时，需要在 tsconfig.json 文件中设置 "lib" 配置项为 "ES2015"，以确保编译器能够识别 Promise
+    "moduleResolution": "node",
+    "lib": ["ES2015", "DOM"]
+  }
+}

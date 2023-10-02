@@ -1,36 +1,35 @@
-# 框架
-
-1. 什么是动态主题，动态主题的场景是什么？
-2. 动态主题的原理是什么
-3. 动态主题的解决方案 - antd-theme-generator
-4. 动态主题的解决方案 - antd 原生解决方案
-5. 动态主题的解决方案 - antd V 的解决方案
-6. scss 怎么做动态主题
-
 # what
 
 动态主题是指：当用户主动触发某种交互的时候，页面的颜色内容发生变化；
 动态主题最常见的场景就是 **黑暗模式**
-TODO: 找一例子
+![](./_images/dynamic_themes.gif)
 
-# 动态主题的原理
+# 动态主题的实现方式和原理
 
-动态换肤的方式一般有两种：
+动态主题的实现方式本质上是和 css 技术栈有关系的：
 
-1. less.modifyVars
-2. var css
+1. less - less.modifyVars
+2. css - var css
+3. css in js - js change css
 
 ## less.modifyVars
 
 这种方式是在页面引入 less.js 以及 less 文件，然后通过修改 less 变量的方式来达到动态换肤的效果
 [demo](./demos/1_modifyVars/index.html)
-TODO: 图片效果
+![](./_images/less_modifyVars.gif)
 
 ## var css
 
 这种方式是通过在不同的 css 选择器下面定义 css 变量值来达到动态换肤的小贵
 [demo](./demos/2_var_css.html)
-TODO: 图片那效果
+![](./_images/var_css.gif)
+
+## css in js - js change css
+
+css in js 是一种 css 解决方案，它使用 js 将 css 规则插入到页面中
+这里以 emotion 为例，我们可以直接修改 theme 对应的主题变量
+[demo](./demos/3_emotion-theme/src/layouts/Layout.tsx)
+![](./_images/css_in_js.gif)
 
 # antd@4 动态主题解决方案
 
@@ -40,12 +39,8 @@ antd-theme-generator 是一个将 antd 中所有的 less 变量提取成一个�
 [如何在 umi 系项目中实现动态换肤](https://zhuanlan.zhihu.com/p/347725244)
 [Ant Design Runtime Theme Update #10007](https://github.com/ant-design/ant-design/issues/10007)
 
-解决方案的 demo：[demo](./demos/3_antd-theme-generator/)
-
-运行效果：
+解决方案的 demo：[demo](./demos/4_antd-theme-g
 ![](./_images/antd-theme-generator.gif)
-
-TODO: 感觉这个内容还是要看一下原理才行
 
 ## antd ConfigProvider
 
@@ -85,13 +80,22 @@ export interface Theme {
 1. 如果自定义主题的场景比较简单，能够使用 ConfigProvider 的 6 个变量实现的话，推荐使用 ConfigProvider 方案
 2. 如果 ConfigProvider 不能满足自定义的需求，才推荐使用 antd-theme-generator 方案
 
-# ant@5 解决方案
+# ant@5 动态主题解决方案
+
+antd@5 是基于 css in js 的，因此技术上直接支持动态主题，加上 antd@5 本身对于动态主题支持也很完成，因此这部分建议直接看官方文档即可
+[https://ant.design/docs/react/customize-theme-cn](https://ant.design/docs/react/customize-theme-cn)
 
 # QA
 
 ## antd-theme-generator 是按需加载还是非按需加载，如果 less 文件发生了变更，antd-theme-generator 能够动态地检测到么?(例如新增了一个组件，可以保证 color.less 文件中存在相应的内容吗？)
 
+由于 antd-theme-generator 是一个 less 文件生成的脚本，如果存在增量内容，是不会有动态检测的
+
+不过可以考虑将这个内容做成 webpack 插件
+
 ## 如果 UI 框架是 scss 的话，如果做动态主题
+
+scss 不能做动态处理，因此只能往 var css 方向上靠
 
 ## antd 中定义的 less 变量有哪些，如果判断这些变量的影响范围？
 
@@ -126,3 +130,6 @@ export interface Theme {
 4. [实现 antd 动态主题的两种方式](https://juejin.cn/post/7056415670791208990#heading-17)
 5. [antd 定制主题](https://4x-ant-design.antgroup.com/docs/react/customize-theme-cn)
 6. [github antd-theme-generator](https://github.com/mzohaibqc/antd-theme-generator)
+7. [emotion - 官方文档](https://emotion.sh/docs/community)
+8. [emotion - gitub](https://github.com/emotion-js/emotion)
+9. [antd@5 文档](https://ant.design/docs/react/customize-theme-cn)

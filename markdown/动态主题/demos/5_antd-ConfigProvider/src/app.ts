@@ -12,4 +12,3 @@ export function render(oldRender) {
   setColor();
 
   oldRender();
-}
