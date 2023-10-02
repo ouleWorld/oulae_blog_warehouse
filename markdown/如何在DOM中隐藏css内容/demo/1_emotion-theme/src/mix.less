@@ -1,0 +1,43 @@
+// 作用：实现自适应布局，
+// 规范：
+//   1. 要求设计稿是按照 720 的比例设计的
+.px2vw(@px) {
+  @return: (@px / 720) * 100vw;
+}
+
+.bgimage(@url, @size: 100% 100%, @pos: center center, @rep: no-repeat) {
+  background-image: url(@url);
+  background-size: @size;
+  background-repeat: @rep;
+  background-position: @pos;
+}
+
+// css3 flex模型
+.flex(@justify: center, @align: center, @direction: initial, @wrap: initial) {
+  display: flex;
+  justify-content: @justify;
+  align-items: @align;
+  flex-direction: @direction;
+  flex-wrap: @wrap;
+}
+
+// 文本省略
+.ellipsis(@line: 1) {
+  display: -webkit-box;
+  -webkit-line-clamp: @line;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// 清除浮动
+.clear() {
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+}

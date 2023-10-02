@@ -1,0 +1,9 @@
+**/node_modules
+
+# 忽略构建产物
+**/dist
+
+# umi，忽略 umi 的临时文件
+**/src/.umi
+**/src/.umi-production
+**/src/.umi-test
