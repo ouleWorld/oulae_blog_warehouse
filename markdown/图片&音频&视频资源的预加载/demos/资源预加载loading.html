@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>资源预加载</title>
+    <style>
+      body {
+        margin: 0;
+      }
+
+      .container {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+      }
+
+      img {
+        width: 100%;
+      }
+
+      video {
+        width: 100%;
+      }
+
+      .loading {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .loading_container {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        height: 25px;
+        background-color: #ccc;
+      }
+
+      .loading_process {
+        width: 0%;
+        height: 25px;
+        background-color: #f00;
+        text-align: center;
+        color: #fff;
+        transition: width 0.1s;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>本 demo 需要使用 http-server 开启本地服务！</h1>
+    <div class="container"></div>
+    <script>
+      const log = console.log.bind(console);
+
+      const e = (selector) => document.querySelector(selector);
+
+      // 时延函数，该函数表示等待delayTime 秒之后，再执行下一个语句，可用于测试
+      const timeDelay = (delayTime) => {
+        // delayTime表示等待的时间
+        let time = new Date();
+        // console.log(time.getTime())
+        while (true) {
+          var t1 = new Date();
+          if (t1.getTime() - time.getTime() >= Number(delayTime)) {
+            // console.log(t1.getTime())
+            break;
+          }
+        }
+      };
+
+      // 产生一个范围在 [min，max) 内的随机数，结果保留n位小数
+      const productRandomNumber = (min, max, n) => {
+        return Number((Math.random() * (max - min) + min).toFixed(n));
+      };
+
+      // class-资源加载状态存储
+      class LoadObj {
+        constructor(number, curLoadNumber) {
+          this.number = number;
+          this.curLoadNumber = curLoadNumber;
+          this.updateLoading();
+        }
+
+        logInfo() {
+          log('this: ', this);
+        }
+
+        // 操作进度条
+        updateLoading() {
+          if (this.curLoadNumber === 0) {
+            const $container = e('.container');
+            const html = `
+            <div class="loading_container">
+              <div class="loading_process"></div>
+            </div>
+          `;
+            $container.innerHTML = html;
+          } else {
+            const $loadingProcess = e('.loading_process');
+            const rate = ((this.curLoadNumber / this.number) * 100).toFixed(2);
+            $loadingProcess.style.width = `${rate}%`;
+            $loadingProcess.innerHTML = `${rate}%`;
+          }
+        }
+
+        setNumber(num) {
+          this.number = num;
+          this.logInfo();
+          this.updateLoading();
+        }
+
+        setCurLoadNumber(num) {
+          this.curLoadNumber = num;
+          this.logInfo();
+          this.updateLoading();
+        }
+      }
+
+      const proloadFile = (url, loadObj) => {
+        return new Promise((resolve, reject) => {
+          if (url.includes('.mp3')) {
+            // 音频流文件预加载
+            const audio = new Audio();
+            audio.src = url;
+            audio.addEventListener('canplaythrough', () => {
+              loadObj.setCurLoadNumber(loadObj.curLoadNumber + 1);
+              resolve();
+            });
+          } else if (url.includes('.mp4')) {
+            // 视频流文件预加载
+            const req = new XMLHttpRequest();
+            req.open('GET', url, true);
+            req.responseType = 'blob';
+            req.onload = function () {
+              if (this.status === 200) {
+                const videoBlob = this.response;
+                const blobSrc = URL.createObjectURL(videoBlob); // IE10+
+                loadObj.setCurLoadNumber(loadObj.curLoadNumber + 1);
+                resolve(blobSrc);
+              }
+            };
+            req.onerror = function () {
+              // Error
+            };
+            req.send();
+          } else {
+            // 图片预加载
+            const img = new Image();
+            img.src = url;
+            img.onload = () => {
+              loadObj.setCurLoadNumber(loadObj.curLoadNumber + 1);
+              resolve();
+            };
+          }
+        });
+      };
+
+      const preLoadData = (data) => {
+        const promiseList = [];
+        const loadObj = new LoadObj(data.length, 0);
+
+        data.forEach((ele) => {
+          promiseList.push(proloadFile(ele, loadObj));
+        });
+
+        Promise.all(promiseList).then((res) => {
+          console.log('所有数据加载完了！');
+
+          const html = `
+          <img src=https://cn.bing.com/th?id=OHR.BorregoBadlands_ZH-CN9913349081_1920x1080.jpg&rf=LaDigue_1920x1080.jpg>
+          <audio controls loop autoplay src=https://activity.hdslb.com/blackboard/activity52952/media/bgm1.ac823c17.mp3></audio>
+          <video controls loop autoplay src=http://localhost:8080/mov_bbb.mp4></video>
+        `;
+
+          const app = e('.container');
+
+          setTimeout(() => {
+            app.innerHTML = html;
+          }, 1000);
+        });
+      };
+
+      const __main = () => {
+        const data = [
+          'https://cn.bing.com/th?id=OHR.BorregoBadlands_ZH-CN9913349081_1920x1080.jpg&rf=LaDigue_1920x1080.jpg',
+          'https://tse1-mm.cn.bing.net/th/id/OET.a38cdb452bc241d997aef67ba3df3be8?w=272&h=135&c=7&rs=1&o=5&dpr=2&pid=1.9',
+          'https://tse1-mm.cn.bing.net/th/id/OET.2655cd5b236b4aea99356ac53314038a?w=272&h=135&c=7&rs=1&o=5&dpr=2&pid=1.9',
+          'https://tse1-mm.cn.bing.net/th/id/OET.8c6bb8ef8c604e41976d95a82c234ffd?w=272&h=135&c=7&rs=1&o=5&dpr=2&pid=1.9',
+          'https://tse1-mm.cn.bing.net/th/id/OET.ad9129d8bbf74c1c90d3f2f1b83aaefb?w=272&h=135&c=7&rs=1&o=5&dpr=2&pid=1.9',
+          'https://activity.hdslb.com/blackboard/activity52952/media/bgm1.ac823c17.mp3',
+          'http://localhost:8080/mov_bbb.mp4',
+        ];
+
+        preLoadData(data);
+      };
+
+      __main();
+    </script>
+  </body>
+</html>

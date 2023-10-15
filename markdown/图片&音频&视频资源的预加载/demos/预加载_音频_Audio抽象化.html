@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title></title>
+    <style></style>
+  </head>
+  <body>
+    <div class="container">
+      <button>play</button>
+    </div>
+    <script>
+      const log = console.log.bind(console);
+
+      const e = (selector) => document.querySelector(selector);
+
+      const ebindEvent = (ele, event, callback) => {
+        ele.addEventListener(event, callback);
+      };
+
+      class AudioPreload {
+        constructor(initParams) {
+          const { url, setConfig = () => {}, callback = () => {} } = initParams;
+          this.$audio = new Audio(url);
+          this.loadCallback = callback;
+          setConfig && setConfig(this.$audio);
+          this.init();
+        }
+
+        init() {
+          this.$audio.addEventListener('canplaythrough', () => {
+            console.log('音频预加载完成!');
+            this.loadCallback();
+          });
+        }
+
+        static new(initParams) {
+          var i = new this({ ...initParams });
+          return i;
+        }
+
+        play() {
+          this.$audio.play();
+        }
+
+        pause() {
+          this.$audio.pause();
+        }
+
+        changeMuted() {
+          const temp = this.$audio.muted;
+          this.$audio.muted = !temp;
+        }
+      }
+
+      const __main = () => {
+        const $audio = AudioPreload.new({
+          url: 'https://activity.hdslb.com/blackboard/activity52952/media/bgm1.ac823c17.mp3',
+          setConfig: (audio) => {
+            audio.loop = true;
+          },
+          callback: () => {
+            console.log('音频加载完成啦!');
+          },
+        });
+
+        const $button = e('button');
+        ebindEvent($button, 'click', () => {
+          $audio.play();
+        });
+      };
+
+      __main();
+    </script>
+  </body>
+</html>

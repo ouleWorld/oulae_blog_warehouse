@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>预加载_音频_audioDom</title>
+    <style></style>
+  </head>
+  <body>
+    <div class="container">
+      <audio
+        controls
+        preload="auto"
+        src="https://activity.hdslb.com/blackboard/activity52952/media/bgm1.ac823c17.mp3"
+      ></audio>
+    </div>
+    <script>
+      const log = console.log.bind(console);
+
+      const e = (selector) => document.querySelector(selector);
+
+      const ebindEvent = (ele, event, callback) => {
+        ele.addEventListener(event, callback);
+      };
+
+      const __main = () => {
+        const $audio = e('audio');
+
+        setTimeout(() => {
+          ebindEvent($audio, 'canplaythrough', () => {
+            console.log('音频加载完成了!');
+          });
+        }, 300);
+        // ebindEvent($audio, 'canplaythrough', () => {
+        //   console.log('音频加载完成了!');
+        // });
+      };
+
+      __main();
+    </script>
+  </body>
+</html>
