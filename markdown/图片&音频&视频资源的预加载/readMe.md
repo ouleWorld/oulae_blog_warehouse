@@ -4,12 +4,12 @@
 
 图片预加载的核心内容其实就是使用 Image 对象，只要使用 Image 对象加载了图片信息的话，再次使用该图片浏览器可以直接使用缓存中的内容
 
-```
+```js
 const img = new Image();
 img.src = url;
 img.onload = () => {
-  console.log('图片资源加载完成!')
-}
+  console.log('图片资源加载完成!');
+};
 ```
 
 ## demo
@@ -26,11 +26,11 @@ img.onload = () => {
 
 ### 定义
 
-```
-const audio = new Audio()
-audio.src = url
+```js
+const audio = new Audio();
+audio.src = url;
 audio.addEventListener('canplaythrough', () => {
-  console.log('音频资源加载完成!')
+  console.log('音频资源加载完成!');
 });
 ```
 
@@ -42,7 +42,7 @@ audio.addEventListener('canplaythrough', () => {
 
 备注: 这里是将这个方案抽象成为了 class 类, 这种方案可以兼容不同的场景, 如果有需求, 也可以根据相关的框架语法做修改
 
-```
+```js
 class AudioPreload {
   constructor(initParams) {
     const { url, setConfig = () => {}, callback = () => {} } = initParams;
@@ -87,7 +87,7 @@ class AudioPreload {
 
 这个方案, 就是在 DOM 中插入:
 
-```
+```html
 <audio preload="auto"></audio>
 ```
 
@@ -149,4 +149,8 @@ audioDOm 这个方案会可能不能正常监听事件, 在实际开发中就遇
 这个是一个加载 图片/音频/视频 loading 内容的例子
 
 **由于存在视频资源，且视频资源配置了跨域，因此测试需要使用 http-server 开启本地服务**
+
 [资源预加载 loading demo](./demo/%E8%B5%84%E6%BA%90%E9%A2%84%E5%8A%A0%E8%BD%BDloading.html)
+
+效果：
+![](./_images/loading.gif)
