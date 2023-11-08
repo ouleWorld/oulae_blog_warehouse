@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+    <script>
+      window.addEventListener('unhandledrejection', (e) => {
+        console.log('e: ', e);
+      });
+    </script>
+  </head>
+  <body>
+    <h2>promise 错误</h2>
+
+    <script>
+      console.log('123');
+      Promise.resolve().then(() => {
+        const a = 123;
+        console.log(a.name.c);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="IE=edge"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+    <script>
+      window.addEventListener(
+        'error',
+        (e) => {
+          const { target } = e;
+          const tag = target.tagName;
+          const url = target.src || target.href;
+          console.log(
+            `捕获到了加载错误, 加载标签类型为 ${tag}; 资源 url 为 ${url}`
+          );
+        },
+        // 错误的监听必须在捕获的时候进行监听
+        true
+      );
+    </script>
+    <script src="https://www.oulae.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://www.oulae.css"
+    />
+  </head>
+  <body>
+    <h1>js、css、img 资源加载错误</h1>
+    <img
+      src="https://www.oulae.png"
+      alt=""
+    />
+  </body>
+</html>
