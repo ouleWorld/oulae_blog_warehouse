@@ -109,3 +109,20 @@ class PerformaceOulaeSdk {
 
 这里我们使用掘金首页作为我们的测试场景, 下面是测试结果:
 ![](./_images/sdk_result.png)
+
+# 参考链接
+
+## 系列&demo 相关
+
+1. [github blog](https://github.com/ouleWorld/oulae_blog_warehouse/tree/main/markdown/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96)
+2. [demos 仓库](https://github.com/ouleWorld/oulae_blog_warehouse/tree/main/markdown/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/demos)
+3. [浏览器渲染流程](https://www.w3.org/TR/navigation-timing-2/timestamp-diagram.svg)
+4. [测试 url - ieubs](https://ieubs.9game.cn/m/home/all?keyword=%E5%89%91%E4%B8%8E%E8%BF%9C%E5%BE%81)
+5. [测试 url - 交易猫](https://m.jiaoyimao.com/)
+
+## 参考资料
+
+1. [深入了解前端监控原理](https://juejin.cn/post/6899430989404045320)
+2. [前端监控 SDK 的一些技术要点原理分析](https://juejin.cn/post/7017974567943536671#heading-35)
+3. [腾讯二面：现在要你实现一个埋点监控 SDK，你会怎么设计？](https://juejin.cn/post/7085679511290773534#heading-6)
+4. [Displaying an error to users with a error boundary ](https://react.dev/reference/react/useTransition#displaying-an-error-to-users-with-error-boundary)
